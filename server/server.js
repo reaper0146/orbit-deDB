@@ -11,7 +11,6 @@ app.use(express.json())
 app.use(cors())
 
 const initIPFSInstance = async () => {
-    console.log('hoi')
     return await IPFS.create({ repo: "./path-for-js-ipfs-repo" });
   };
 
