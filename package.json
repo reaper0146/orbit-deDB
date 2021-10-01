@@ -21,9 +21,12 @@
   },
   "homepage": "https://github.com/soumyapal96/orbit-deDB#readme",
   "dependencies": {
+    "axios": "^0.22.0",
     "concurrently": "^6.2.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "ipfs": "^0.59.1",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.13",
     "orbit-db": "^0.27.1"
   }
