@@ -31,6 +31,21 @@ function App() {
       });
   };
 
+  const ipfsAdd = () => {
+    Axios.post('http://localhost:5000/ipfsAdd')/*, {
+      username:username, password:password}).then((response) => {
+        if(response.data.message) {
+          setLoginStatus(response.data.message);
+        } else {
+          setLoginStatus(response.data[0].username);
+        }
+      });*/
+  };
+
+  const ipfsInit = () => {
+    Axios.post('http://localhost:5000/ipfsInit')
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -46,7 +61,10 @@ function App() {
           }}/><br/>
           <button onClick = {register}>Register</button><br/><br/>
         </div>
-
+        <div>
+        <button onClick = {ipfsInit}>IPFS Init</button><br/>
+        <button onClick = {ipfsAdd}>IPFS ADD</button><br/>
+        </div>
         <div className="Regislogintration">
           <h1>Login</h1><br/>
           <input type='text' placeholder='Username' onChange={(e) => {

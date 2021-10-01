@@ -10,18 +10,21 @@ const app=express();
 app.use(express.json())
 app.use(cors())
 
+var orbitDB
+
 const initIPFSInstance = async () => {
     return await IPFS.create({ repo: "./path-for-js-ipfs-repo" });
   };
 
-  async function init(){
+
+async function initIPFS(){
     const ipfsOptions = {
         EXPERIMENTAL: {
           pubsub: true
         }
       }
     
-        const ipfs = await IPFS.create(ipfsOptions)  
+    const ipfs = await IPFS.create(ipfsOptions)  
         //const orbitdb = await OrbitDB.createInstance(ipfs);
       
         // Create / Open a database
@@ -33,24 +36,9 @@ const initIPFSInstance = async () => {
     
         //const identity = await Identities.createIdentity(options)
         //console.log(identity.toJSON())
-        const orbitDB = await OrbitDB.createInstance(ipfs)//,  { identity: identity })
-     
-        const db = await orbitDB.docs('test-db')
-        console.log(db.address.toString())
-        //await db.put({ _id: 'test', name: 'test-doc-db', category: 'distributed' })
-        await db.put({'_id': 'QmBwesomeIpfsHash', name:'Jack', age: 20})
-        await db.put({'_id': 'QmCwesomeIpfsHash', name:'Aaron', age: 21})
-        await db.put({'_id': 'QmDwesomeIpfsHash', name:'John', age: 22})
-        await db.put({'_id': 'QmEwesomeIpfsHash', name:'Bob', age: 23})
-        await db.put({'_id': 'QmFwesomeIpfsHash', name:'Alice', age: 29})
-        console.log("hello")
-    
-        const address = db.address.toString()
-        console.log(address)
-        await db.load()
-        const value = db.query((doc) => doc.age >= 20)
+    const db = await OrbitDB.createInstance(ipfs)//,  { identity: identity })
+    orbitDB = db
         
-        console.log(value)
         // Listen for updates from peers
         //db.events.on("replicated", address => {
         //  console.log(db.iterator({ limit: -1 }).collect());
@@ -65,7 +53,38 @@ const initIPFSInstance = async () => {
         //console.log(JSON.stringify(result, null, 2));
       //});
     
-  }
+}
+
+app.post('/ipfsInit', (req,res)=> {
+    //const username = req.body.username
+    //const password = req.body.password
+    //console.log(username)
+    //console.log(password)
+    //initIPFS()
+    initIPFS()
+
+    /*db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], 
+    (err,result) => {console.log(err);}
+    );*/
+})
+async function ipfsAdd(){
+    const db = await orbitDB.docs('test-db')
+    console.log(db.address.toString())
+        //await db.put({ _id: 'test', name: 'test-doc-db', category: 'distributed' })
+    await db.put({'_id': 'QmBwesomeIpfsHash', name:'Jack', age: 20})
+    await db.put({'_id': 'QmCwesomeIpfsHash', name:'Aaron', age: 21})
+    await db.put({'_id': 'QmDwesomeIpfsHash', name:'John', age: 22})
+    await db.put({'_id': 'QmEwesomeIpfsHash', name:'Bob', age: 23})
+    await db.put({'_id': 'QmFwesomeIpfsHash', name:'Alice', age: 29})
+    console.log("hello")
+    
+    const address = db.address.toString()
+    console.log(address)
+    await db.load()
+    const value = db.query((doc) => doc.age >= 20)
+        
+    console.log(value)
+}
 
 const db = mysql.createConnection({
     user:"root",
@@ -79,7 +98,20 @@ app.post('/register', (req,res)=> {
     const password = req.body.password
     console.log(username)
     console.log(password)
-    init()
+    //initIPFS()
+
+    /*db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], 
+    (err,result) => {console.log(err);}
+    );*/
+})
+
+app.post('/ipfsAdd', (req,res)=> {
+    //const username = req.body.username
+    //const password = req.body.password
+    //console.log(username)
+    //console.log(password)
+    //initIPFS()
+    ipfsAdd()
 
     /*db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], 
     (err,result) => {console.log(err);}
