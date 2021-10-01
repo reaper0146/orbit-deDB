@@ -55,15 +55,7 @@ async function initIPFS(){
     
 }
 
-app.post('/ipfsInit', (req,res)=> {
-    //initIPFS()
-    initIPFS()
-
-    /*db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], 
-    (err,result) => {console.log(err);}
-    );*/
-})
-async function ipfsAdd(i,n,a){
+async function ipfsAdd(id,name,age){
     
     const db = await orbitDB.docs('test-db')
     console.log(db.address.toString())
@@ -71,7 +63,7 @@ async function ipfsAdd(i,n,a){
     //await db.put({'_id': 'QmCwesomeIpfsHash', name:'Aaron', age: 21})
     //await db.put({'_id': 'QmDwesomeIpfsHash', name:'John', age: 22})
     //await db.put({'_id': 'QmEwesomeIpfsHash', name:'Bob', age: 23})
-    await db.put({'_id': i, name: n, age: a})
+    await db.put({'_id': id, name: name, age: age})
     //console.log("hello")
     
     const address = db.address.toString()
@@ -81,6 +73,16 @@ async function ipfsAdd(i,n,a){
         
     console.log(value)
 }
+
+app.post('/ipfsInit', (req,res)=> {
+    //initIPFS()
+    initIPFS()
+
+    /*db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], 
+    (err,result) => {console.log(err);}
+    );*/
+})
+
 
 const db = mysql.createConnection({
     user:"root",

@@ -66,7 +66,7 @@ function App() {
           <button onClick = {register}>Register</button><br/><br/>
         </div>
         <div>
-        <button onClick = {ipfsInit}>IPFS Init</button><br/>
+        <button onClick = {ipfsInit}>orbitDB Init</button><br/>
         </div>
         <div>
         <h1>Add Record</h1> <br/>
@@ -82,7 +82,7 @@ function App() {
           <input type='number' onChange={(e) => {
             setAge(e.target.value);
           }}/><br/>
-        <button onClick = {ipfsAdd}>IPFS ADD</button><br/>
+        <button onClick = {ipfsAdd}>orbitDB ADD</button><br/>
         </div>
         <div className="Regislogintration">
           <h1>Login</h1><br/>
