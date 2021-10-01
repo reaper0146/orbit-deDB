@@ -56,10 +56,6 @@ async function initIPFS(){
 }
 
 app.post('/ipfsInit', (req,res)=> {
-    //const username = req.body.username
-    //const password = req.body.password
-    //console.log(username)
-    //console.log(password)
     //initIPFS()
     initIPFS()
 
@@ -67,16 +63,16 @@ app.post('/ipfsInit', (req,res)=> {
     (err,result) => {console.log(err);}
     );*/
 })
-async function ipfsAdd(){
+async function ipfsAdd(i,n,a){
+    
     const db = await orbitDB.docs('test-db')
     console.log(db.address.toString())
-        //await db.put({ _id: 'test', name: 'test-doc-db', category: 'distributed' })
-    await db.put({'_id': 'QmBwesomeIpfsHash', name:'Jack', age: 20})
-    await db.put({'_id': 'QmCwesomeIpfsHash', name:'Aaron', age: 21})
-    await db.put({'_id': 'QmDwesomeIpfsHash', name:'John', age: 22})
-    await db.put({'_id': 'QmEwesomeIpfsHash', name:'Bob', age: 23})
-    await db.put({'_id': 'QmFwesomeIpfsHash', name:'Alice', age: 29})
-    console.log("hello")
+    //await db.put({'_id': 'QmBwesomeIpfsHash', name:'Jack', age: 20})
+    //await db.put({'_id': 'QmCwesomeIpfsHash', name:'Aaron', age: 21})
+    //await db.put({'_id': 'QmDwesomeIpfsHash', name:'John', age: 22})
+    //await db.put({'_id': 'QmEwesomeIpfsHash', name:'Bob', age: 23})
+    await db.put({'_id': i, name: n, age: a})
+    //console.log("hello")
     
     const address = db.address.toString()
     console.log(address)
@@ -106,16 +102,18 @@ app.post('/register', (req,res)=> {
 })
 
 app.post('/ipfsAdd', (req,res)=> {
-    //const username = req.body.username
-    //const password = req.body.password
-    //console.log(username)
-    //console.log(password)
-    //initIPFS()
-    ipfsAdd()
 
-    /*db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], 
-    (err,result) => {console.log(err);}
-    );*/
+    const id = req.body.id
+    const name = req.body.name
+    const age = parseInt(req.body.age)
+    console.log(id)
+    console.log(name)
+    console.log(age)
+    console.log(typeof(id))
+    console.log(typeof(name))
+    console.log(typeof(age))
+    ipfsAdd(id,name,age)
+
 })
 
 app.post('/login', (req,res)=> {

@@ -10,6 +10,10 @@ function App() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const [idReg, setId] = useState('')
+  const [nameReg, setName] = useState('')
+  const [ageReg, setAge] = useState('')
+
   const[loginStatus, setLoginStatus]= useState("")
 
 
@@ -32,14 +36,14 @@ function App() {
   };
 
   const ipfsAdd = () => {
-    Axios.post('http://localhost:5000/ipfsAdd')/*, {
-      username:username, password:password}).then((response) => {
+    Axios.post('http://localhost:5000/ipfsAdd', {
+      id:idReg, name:nameReg, age: ageReg}).then((response) => {
         if(response.data.message) {
           setLoginStatus(response.data.message);
         } else {
           setLoginStatus(response.data[0].username);
         }
-      });*/
+      });
   };
 
   const ipfsInit = () => {
@@ -63,6 +67,21 @@ function App() {
         </div>
         <div>
         <button onClick = {ipfsInit}>IPFS Init</button><br/>
+        </div>
+        <div>
+        <h1>Add Record</h1> <br/>
+          <label>Id</label>
+          <input type='text' onChange={(e) => {
+            setId(e.target.value);
+          }}/><br/>
+          <label>Name</label>
+          <input type='text' onChange={(e) => {
+            setName(e.target.value);
+          }}/><br/>
+          <label>Age</label>
+          <input type='number' onChange={(e) => {
+            setAge(e.target.value);
+          }}/><br/>
         <button onClick = {ipfsAdd}>IPFS ADD</button><br/>
         </div>
         <div className="Regislogintration">
