@@ -17,7 +17,7 @@ const initIPFSInstance = async () => {
   };
 
 
-async function initIPFS(){
+async function initOrbit(){
     const ipfsOptions = {
         EXPERIMENTAL: {
           pubsub: true
@@ -55,28 +55,32 @@ async function initIPFS(){
     
 }
 
-async function ipfsAdd(id,name,age){
+async function orbitAdd(id,name,age){
     
     const db = await orbitDB.docs('test-db')
+    await db.load()
     console.log(db.address.toString())
-    //await db.put({'_id': 'QmBwesomeIpfsHash', name:'Jack', age: 20})
-    //await db.put({'_id': 'QmCwesomeIpfsHash', name:'Aaron', age: 21})
-    //await db.put({'_id': 'QmDwesomeIpfsHash', name:'John', age: 22})
-    //await db.put({'_id': 'QmEwesomeIpfsHash', name:'Bob', age: 23})
     await db.put({'_id': id, name: name, age: age})
     //console.log("hello")
     
-    const address = db.address.toString()
-    console.log(address)
-    await db.load()
-    const value = db.query((doc) => doc.age >= 20)
+    //const address = db.address.toString()
+    //console.log(address)
+    //await db.load()
+    //const value = db.query((doc) => doc.age >= 20)
         
+    //console.log(value)
+}
+
+async function query(age){
+    const db = await orbitDB.docs('test-db')
+    await db.load()
+    const value = db.query((doc) => doc.age >= age)
     console.log(value)
 }
 
-app.post('/ipfsInit', (req,res)=> {
+app.post('/orbitInit', (req,res)=> {
     //initIPFS()
-    initIPFS()
+    initOrbit()
 
     /*db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], 
     (err,result) => {console.log(err);}
@@ -103,7 +107,7 @@ app.post('/register', (req,res)=> {
     );*/
 })
 
-app.post('/ipfsAdd', (req,res)=> {
+app.post('/orbitAdd', (req,res)=> {
 
     const id = req.body.id
     const name = req.body.name
@@ -114,7 +118,16 @@ app.post('/ipfsAdd', (req,res)=> {
     console.log(typeof(id))
     console.log(typeof(name))
     console.log(typeof(age))
-    ipfsAdd(id,name,age)
+    orbitAdd(id,name,age)
+
+})
+
+app.post('/query', (req,res)=> {
+
+    const age = parseInt(req.body.age)
+    console.log(age)
+    console.log(typeof(age))
+    query(age)
 
 })
 

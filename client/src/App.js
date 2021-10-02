@@ -14,6 +14,8 @@ function App() {
   const [nameReg, setName] = useState('')
   const [ageReg, setAge] = useState('')
 
+  const [ageFind, setAgeFind] = useState('')
+
   const[loginStatus, setLoginStatus]= useState("")
 
 
@@ -35,8 +37,12 @@ function App() {
       });
   };
 
-  const ipfsAdd = () => {
-    Axios.post('http://localhost:5000/ipfsAdd', {
+  const orbitInit = () => {
+    Axios.post('http://localhost:5000/orbitInit')
+  };
+
+  const orbitAdd = () => {
+    Axios.post('http://localhost:5000/orbitAdd', {
       id:idReg, name:nameReg, age: ageReg}).then((response) => {
         if(response.data.message) {
           setLoginStatus(response.data.message);
@@ -46,29 +52,19 @@ function App() {
       });
   };
 
-  const ipfsInit = () => {
-    Axios.post('http://localhost:5000/ipfsInit')
-  };
+
+  const query = () => {
+    Axios.post('http://localhost:5000/query', {
+      age:ageFind});
+    };
 
   return (
     <div className="App">
       <header className="App-header">
-        <div className="Registration">
-          <h1>Registration</h1> <br/>
-          <label>Username</label>
-          <input type='text' onChange={(e) => {
-            setUsernameReg(e.target.value);
-          }}/><br/>
-          <label>Password</label>
-          <input type='text' onChange={(e) => {
-            setPasswordReg(e.target.value);
-          }}/><br/>
-          <button onClick = {register}>Register</button><br/><br/>
-        </div>
         <div>
-        <button onClick = {ipfsInit}>orbitDB Init</button><br/>
+        <button onClick = {orbitInit}>orbitDB Init</button><br/>
         </div>
-        <div>
+        <div className='orbit'>
         <h1>Add Record</h1> <br/>
           <label>Id</label>
           <input type='text' onChange={(e) => {
@@ -82,9 +78,27 @@ function App() {
           <input type='number' onChange={(e) => {
             setAge(e.target.value);
           }}/><br/>
-        <button onClick = {ipfsAdd}>orbitDB ADD</button><br/>
+        <button onClick = {orbitAdd}>orbitDB ADD</button><br/>
+        <input type='text' placeholder='age to search above' onChange={(e) => {
+            setAgeFind(e.target.value);
+          }}/><br/>
+        <button onClick = {query}>Query above age</button><br/>
         </div>
-        <div className="Regislogintration">
+
+        <div className="Registration">
+          <h1>Registration</h1> <br/>
+          <label>Username</label>
+          <input type='text' onChange={(e) => {
+            setUsernameReg(e.target.value);
+          }}/><br/>
+          <label>Password</label>
+          <input type='text' onChange={(e) => {
+            setPasswordReg(e.target.value);
+          }}/><br/>
+          <button onClick = {register}>Register</button><br/><br/>
+        </div>
+        
+        <div className="login">
           <h1>Login</h1><br/>
           <input type='text' placeholder='Username' onChange={(e) => {
             setUsername(e.target.value);
