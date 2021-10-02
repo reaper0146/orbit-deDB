@@ -62,23 +62,25 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>
+        <h1>Init OrbitDB</h1> <br/>
         <button onClick = {orbitInit}>orbitDB Init</button><br/>
         </div>
         <div className='orbit'>
         <h1>Add Record</h1> <br/>
-          <label>Id</label>
+          <label>id </label>
           <input type='text' onChange={(e) => {
             setId(e.target.value);
-          }}/><br/>
-          <label>Name</label>
+          }}/>
+          <label> Name </label>
           <input type='text' onChange={(e) => {
             setName(e.target.value);
-          }}/><br/>
-          <label>Age</label>
+          }}/>
+          <label> Age </label>
           <input type='number' onChange={(e) => {
             setAge(e.target.value);
           }}/><br/>
         <button onClick = {orbitAdd}>orbitDB ADD</button><br/>
+        <h1>Query</h1> <br/>
         <input type='text' placeholder='age to search above' onChange={(e) => {
             setAgeFind(e.target.value);
           }}/><br/>
@@ -97,7 +99,7 @@ function App() {
           }}/><br/>
           <button onClick = {register}>Register</button><br/><br/>
         </div>
-        
+
         <div className="login">
           <h1>Login</h1><br/>
           <input type='text' placeholder='Username' onChange={(e) => {
