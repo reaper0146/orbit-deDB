@@ -17,6 +17,9 @@ function App() {
   const [ageFind, setAgeFind] = useState('')
 
   const[loginStatus, setLoginStatus]= useState("")
+  const[dataStatus, setDataStatus]= useState("")
+  const[queryStatus, setQueryStatus]= useState("")
+
 
 
   const register = () => {
@@ -45,9 +48,9 @@ function App() {
     Axios.post('http://localhost:5000/orbitAdd', {
       id:idReg, name:nameReg, age: ageReg}).then((response) => {
         if(response.data.message) {
-          setLoginStatus(response.data.message);
+          setDataStatus(response.data.message);
         } else {
-          setLoginStatus(response.data[0].username);
+          setDataStatus(response.data[0].username);
         }
       });
   };
@@ -55,7 +58,13 @@ function App() {
 
   const query = () => {
     Axios.post('http://localhost:5000/query', {
-      age:ageFind});
+      age:ageFind}).then((response) => {
+        if(response.data.message) {
+          setQueryStatus(response.data.message);
+        } else {
+          setQueryStatus(response.data[0].username);
+        }
+      });
     };
 
   return (
@@ -80,11 +89,13 @@ function App() {
             setAge(e.target.value);
           }}/><br/>
         <button onClick = {orbitAdd}>orbitDB ADD</button><br/>
+        <h1>{dataStatus}</h1>
         <h1>Query</h1> <br/>
         <input type='text' placeholder='age to search above' onChange={(e) => {
             setAgeFind(e.target.value);
           }}/><br/>
         <button onClick = {query}>Query above age</button><br/>
+        <h1>{queryStatus}</h1>
         </div>
 
         <div className="Registration">
