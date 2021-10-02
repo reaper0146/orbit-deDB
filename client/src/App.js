@@ -60,7 +60,7 @@ function App() {
     Axios.post('http://localhost:5000/query', {
       age:ageFind}).then((response) => {
         if(response.data.message) {
-          setQueryStatus(response.data.message);
+          setQueryStatus(response);
         } else {
           setQueryStatus("Error");
         }

@@ -10,7 +10,7 @@ const app=express();
 app.use(express.json())
 app.use(cors())
 
-var orbitDB
+const orbitDB
 
 const initIPFSInstance = async () => {
     return await IPFS.create({ repo: "./path-for-js-ipfs-repo" });
@@ -144,8 +144,9 @@ app.post('/query', (req,res)=> {
 
     const age = parseInt(req.body.age)
     const temp = query(age)
+    console.log(temp)
     console.log(typeof(temp))
-    res.send({message: temp})
+    res.send(temp)
 
 })
 
