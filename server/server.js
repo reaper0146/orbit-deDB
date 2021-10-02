@@ -94,7 +94,7 @@ async function query(age){
         }
     })
     console.log(value)
-    test = Object.values(value)
+    const test = Object.values(value)
     console.log(typeof(test))
     console.log(test)
     return test
@@ -143,7 +143,7 @@ app.post('/orbitAdd', (req,res)=> {
 app.post('/query', (req,res)=> {
 
     const age = parseInt(req.body.age)
-    temp = query(age)
+    const temp = query(age)
     console.log(typeof(temp))
     res.send({message: temp})
 

@@ -50,7 +50,7 @@ function App() {
         if(response.data.message) {
           setDataStatus(response.data.message);
         } else {
-          setDataStatus(response.data[0].username);
+          setDataStatus("Error");
         }
       });
   };
@@ -62,7 +62,7 @@ function App() {
         if(response.data.message) {
           setQueryStatus(response.data.message);
         } else {
-          setQueryStatus(response.data[0].username);
+          setQueryStatus("Error");
         }
       });
     };
