@@ -10,7 +10,7 @@ const app=express();
 app.use(express.json())
 app.use(cors())
 
-const orbitDB
+var orbitDB
 
 const initIPFSInstance = async () => {
     return await IPFS.create({ repo: "./path-for-js-ipfs-repo" });
